@@ -42,9 +42,17 @@ window.addEventListener( 'load', () => {
 } )
 
 window.HFG = {
-  getSettings: () => {
+  getHeaderSetup: () => {
     const usedSettings = {}
     NeveReactCustomize.headerControls.map( (item) => {
+      if ( !wp.customize.control( item ) ) return false
+      usedSettings[item] = wp.customize.control( item ).setting.get()
+    } )
+    return JSON.stringify( usedSettings )
+  },
+  getFooterSetup: () => {
+    const usedSettings = {}
+    NeveReactCustomize.footerControls.map( (item) => {
       if ( !wp.customize.control( item ) ) return false
       usedSettings[item] = wp.customize.control( item ).setting.get()
     } )

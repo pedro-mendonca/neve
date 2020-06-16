@@ -327,6 +327,7 @@ abstract class Abstract_Builder implements Builder {
 						],
 					],
 					'conditional_header' => $this->get_id() === 'header',
+					'conditional_footer' => $this->get_id() === 'footer',
 					'transport'          => 'post' . $row_setting_id,
 					'sanitize_callback'  => 'wp_filter_nohtml_kses',
 					'default'            => 'layout-full-contained',

@@ -102,6 +102,7 @@ class Loader {
 				'neve_react_controls_localization',
 				array(
 					'headerControls' => [ 'hfg_header_layout' ],
+					'footerControls' => [ 'hfg_footer_layout' ],
 					'dynamicTags'    => array(
 						'controls' => array(),
 						'options'  => array(),

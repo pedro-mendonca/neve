@@ -387,6 +387,27 @@ class Manager {
 			}
 		}
 
+		if ( isset( $arguments['conditional_footer'] ) && $arguments['conditional_footer'] === true ) {
+			add_filter(
+				'neve_react_controls_localization',
+				function ( $array ) use ( $id ) {
+					$array['footerControls'][] = $id;
+
+					return $array;
+				}
+			);
+			if ( defined( 'NEVE_PRO_VERSION' ) ) {
+				add_filter(
+					'neve_pro_react_controls_localization',
+					function ( $array ) use ( $id ) {
+						$array['footerControls'][] = $id;
+
+						return $array;
+					}
+				);
+			}
+		}
+
 		self::$settings[ $id ] = array_merge(
 			$arguments,
 			[

@@ -41,7 +41,7 @@ class PresetsSelector extends Component {
         <div className='search'>
           <input
             type='search'
-            placeholder={__( 'Search Header Presets...' )}
+            placeholder={__( 'Search Presets...' )}
             onChange={(e) => { this.setState( { search: e.target.value } ) }}
           />
         </div>
@@ -60,17 +60,19 @@ class PresetsSelector extends Component {
               </Tooltip>
             )
           } )
-            : <p>{__( 'No header presets found', 'neve' )}</p>
+            : <p>{__( 'No presets found', 'neve' )}</p>
         }
       </div>
     )
   }
 
   replaceSettings(setup) {
+    const { builder } = this.props.control.params
     setup = maybeParseJson( setup )
-    if ( typeof NeveProReactCustomize === 'undefined' ) {
+    // Header is treated differently because of the conditional headers feature.
+    if ( typeof NeveProReactCustomize === 'undefined' || builder === 'footer' ) {
       Object.keys( setup ).map( (themeMod) => {
-        if ( themeMod === 'hfg_header_layout' ) {
+        if ( themeMod === `hfg_${builder}_layout` ) {
           wp.customize.control( themeMod )
             .setting
             .set( setup[themeMod] )
@@ -78,7 +80,7 @@ class PresetsSelector extends Component {
             new CustomEvent( 'neve-changed-builder-value', {
               detail: {
                 value: maybeParseJson( setup[themeMod] ),
-                id: 'header'
+                id: builder
               }
             } ) )
           return false
