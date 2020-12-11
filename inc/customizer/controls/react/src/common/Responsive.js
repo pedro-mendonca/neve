@@ -1,6 +1,5 @@
 import { Button, Tooltip, ButtonGroup } from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
-import { useSelect, useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 
 import PropTypes from 'prop-types';
@@ -13,13 +12,27 @@ const ResponsiveControl = ( {
 	hideResponsive,
 	children,
 } ) => {
+	const [ visible, setVisible ] = useState( false );
 	const [ view, setView ] = useState( 'desktop' );
+
+	const showResponsive = () => setVisible( true );
 
 	const changeViewType = ( device ) => {
 		setView( device );
 		wp.customize.previewedDevice( device );
 		onChange( device );
+		setVisible( false );
 	};
+
+	useEffect( () => {
+		document.addEventListener( 'neveChangedRepsonsivePreview', ( e ) => {
+			changeViewType( e.detail );
+		} );
+	}, [] );
+
+	if ( ! visible ) {
+		return <button onClick={ showResponsive }>open</button>;
+	}
 
 	const dispatchViewChange = ( device ) => {
 		const event = new CustomEvent( 'neveChangedRepsonsivePreview', {
@@ -54,12 +67,6 @@ const ResponsiveControl = ( {
 		deviceMap[ key ] = devices[ key ];
 	} );
 
-	useEffect( () => {
-		document.addEventListener( 'neveChangedRepsonsivePreview', ( e ) => {
-			changeViewType( e.detail );
-		} );
-	}, [] );
-
 	const DeviceButton = ( { device } ) => {
 		const { tooltip, icon } = deviceMap[ device ];
 		const classes = classnames( device, {
@@ -72,13 +79,14 @@ const ResponsiveControl = ( {
 					icon={ icon }
 					className={ classes }
 					onClick={ () => {
+						changeViewType( device );
 						dispatchViewChange( device );
 					} }
 				/>
 			</Tooltip>
 		);
 	};
-
+	// return null;
 	return (
 		<>
 			<div className="neve-responsive-control-bar">
