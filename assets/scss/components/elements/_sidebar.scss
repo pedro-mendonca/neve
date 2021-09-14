@@ -40,7 +40,12 @@
 
 	li {
 		margin-top: $spacing-xs;
+		a {
+		 	 text-decoration: none;
+		}
 	}
+
+
 }
 
 .wp-block-search .wp-block-search__button {

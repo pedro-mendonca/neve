@@ -57,6 +57,10 @@
 	align-items: center;
 	margin-bottom: $spacing-lg;
 
+  	a {
+	 	 text-decoration: none;
+	}
+
 	.vcard {
 		display: grid;
 
@@ -98,6 +102,10 @@
 
 	label {
 		display: inline-block;
+	}
+
+  	a {
+	  	text-decoration: none;
 	}
 }
 

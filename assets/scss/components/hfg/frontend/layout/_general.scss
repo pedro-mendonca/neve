@@ -86,6 +86,7 @@ $desktop: map-get($gl-devices-list, desktop);
 
 	a {
 		color: var(--color);
+	  	text-decoration: none;
 	}
 
 	.row {

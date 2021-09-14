@@ -45,6 +45,10 @@
 		text-transform: uppercase;
 	}
 
+  	a {
+	  	text-decoration: none;
+	}
+
 	a:hover span:last-child {
 		text-decoration: underline;
 	}
@@ -58,7 +62,9 @@
 .post-pages-links {
 	display: flex;
 	list-style-type: none;
-
+  	a {
+	  text-decoration: none;
+	}
 	> a:not(:last-child) span,
 	> span {
 		padding-right: $spacing-sm;
@@ -84,6 +90,7 @@
 		line-height: 1;
 		font-size: 0.75em !important;
 		display: inline-block;
+	  	text-decoration: none;
 	}
 
 	span {
